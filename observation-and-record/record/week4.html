@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Webpage</title>
+</head>
+
+<body>
+
+    <h1 id="heading">Dynamic Visitor Dashboard</h1>
+
+    <!-- Clock -->
+    <table>
+        <tr>
+            <td width="500%" align="left">
+                <button id="darkBtn">Dark Mode</button>
+
+            </td>
+            <td width="450%" align="right">
+                <h3 id="clock" align="right">Time</h3>
+            </td>
+        </tr>
+    </table>
+
+
+    <!-- Name Input -->
+    <h3>Enter Your Name</h3>
+
+    <input type="text" id="nameInput">
+
+    <button id="addBtn">Add Visitor</button>
+
+    <button id="clearBtn">Clear All</button>
+
+
+    <!-- Greeting -->
+    <h2 id="greeting"></h2>
+
+
+    <!-- Quote -->
+    <p id="quote"></p>
+
+
+    <!-- Counter -->
+    <h3>
+        Total Visitors:
+        <span id="count">0</span>
+    </h3>
+
+
+    <!-- Visitor List -->
+    <h3>Visitors List</h3>
+
+    <ul id="visitorList"></ul>
+
+
+    <!-- Dark Mode -->
+
+
+
+    <script>
+
+
+        // Selecting Elements
+
+        const input = document.querySelector("#nameInput");
+
+        const addBtn = document.querySelector("#addBtn");
+
+        const clearBtn = document.querySelector("#clearBtn");
+
+        const list = document.querySelector("#visitorList");
+
+        const count = document.querySelector("#count");
+
+        const greeting = document.querySelector("#greeting");
+
+        const quote = document.querySelector("#quote");
+
+        const clock = document.querySelector("#clock");
+
+        const darkBtn = document.querySelector("#darkBtn");
+
+        const heading = document.querySelector("#heading");
+
+
+
+        // Array to store visitors
+
+        let visitors = [];
+
+
+
+
+        // Live Clock
+
+        setInterval(function () {
+
+            let time = new Date();
+
+            clock.innerHTML =
+                time.toLocaleTimeString();
+
+        }, 1000);
+
+
+
+
+
+        // Add Visitor Button
+
+        addBtn.addEventListener("click", function () {
+
+
+            let username = input.value.trim();
+
+
+
+            // Validation
+
+            if (username === "") {
+
+                alert("Please enter name");
+
+                return;
+
+            }
+
+
+
+            // Add name in array
+
+            visitors.push(username);
+
+
+
+            displayVisitors();
+
+
+
+            showGreeting(username);
+
+
+
+            showQuote();
+
+
+
+            input.value = "";
+
+
+        });
+
+
+
+
+
+
+        // Display Visitor List Function
+
+        function displayVisitors() {
+
+
+            // Empty old list
+
+            list.innerHTML = "";
+
+
+
+            visitors.forEach(function (visitor, index) {
+
+
+                let li = document.createElement("li");
+
+
+                li.innerHTML =
+                    visitor +
+                    " ";
+
+
+                let deleteBtn = document.createElement("button");
+
+
+                deleteBtn.innerHTML = "Delete";
+
+
+
+                deleteBtn.addEventListener("click", function () {
+
+
+                    visitors.splice(index, 1);
+
+
+                    displayVisitors();
+
+
+                });
+
+
+
+                li.appendChild(deleteBtn);
+
+
+                list.appendChild(li);
+
+
+
+            });
+
+
+
+            // Update counter
+
+            count.innerHTML = visitors.length;
+
+
+        }
+
+
+
+
+
+
+        // Greeting Function
+
+        function showGreeting(name) {
+
+
+            let hour = new Date().getHours();
+
+
+            if (hour < 12) {
+
+                greeting.innerHTML =
+                    "Good Morning " + name + " 🌞";
+
+            }
+
+            else if (hour < 18) {
+
+                greeting.innerHTML =
+                    "Good Afternoon " + name + " ☀️";
+
+            }
+
+            else {
+
+                greeting.innerHTML =
+                    "Good Night " + name + " 🌙";
+
+            }
+
+
+        }
+
+
+
+
+
+
+
+        // Random Quotes
+
+        function showQuote() {
+
+
+            let quotes = [
+
+                "Keep Learning 🚀",
+
+                "Practice makes perfect 💪",
+
+                "Never give up 🔥",
+
+                "Code everyday 💻"
+
+
+            ];
+
+
+
+            let random =
+                Math.floor(Math.random() * quotes.length);
+
+
+
+            quote.innerHTML =
+                quotes[random];
+
+
+        }
+
+
+
+
+
+
+
+
+        // Clear All Button
+
+        clearBtn.addEventListener("click", function () {
+
+
+            visitors = [];
+
+
+            displayVisitors();
+
+
+            greeting.innerHTML = "";
+
+            quote.innerHTML = "";
+
+
+        });
+
+
+
+
+
+
+
+
+        // Dark Mode
+
+        darkBtn.addEventListener("click", function () {
+
+
+
+            if (document.body.style.backgroundColor == "black") {
+
+
+                document.body.style.backgroundColor = "white";
+
+                document.body.style.color = "black";
+
+
+                darkBtn.innerHTML = "Dark Mode";
+
+
+            }
+
+            else {
+
+
+                document.body.style.backgroundColor = "black";
+
+                document.body.style.color = "white";
+
+
+                darkBtn.innerHTML = "Light Mode";
+
+
+            }
+
+
+
+        });
+
+
+
+
+
+
+
+        // Double Click Heading Color Change
+
+        heading.addEventListener("dblclick", function () {
+
+
+            heading.style.color = "blue";
+
+
+        });
+
+
+
+
+
+        // Mouse Hover
+
+        heading.addEventListener("mouseover", function () {
+
+
+            heading.style.fontSize = "50px";
+
+
+        });
+
+
+        heading.addEventListener("mouseout", function () {
+
+
+            heading.style.fontSize = "32px";
+
+
+        });
+
+
+
+
+    </script>
+
+
+</body>
+
+</html>
