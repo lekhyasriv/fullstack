@@ -1,0 +1,73 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #eeeeee;
+}
+
+.wrapper {
+    width: 550px;
+    margin: 50px auto;
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 25px;
+}
+
+.input-box {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+input {
+    display: block;
+    width: 90%;
+    padding: 12px;
+    margin: 10px auto;
+    border: 1px solid #aaa;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+button {
+    padding: 12px 25px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 6px;
+    background: #222;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #444;
+}
+
+.student-card {
+    margin-top: 30px;
+    padding: 25px;
+    background: white;
+    border-radius: 12px;
+    text-align: left;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.student-card h2 {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.detail {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    padding: 10px 0;
+    font-size: 17px;
+    border-bottom: 1px solid #ddd;
+}
+
+.detail span:first-child {
+    font-weight: bold;
+}
