@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>TealWave - Modern Webpage</title>
+
+    <style>
+        /* ---------- RESET ---------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f0fbfc;
+            color: #12343b;
+            line-height: 1.6;
+        }
+
+        /* ---------- NAVBAR ---------- */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
+
+            border-bottom: 1px solid #d4eeee;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: auto;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding: 18px 30px;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+            color: #008c95;
+        }
+
+        .logo span {
+            color: #006d77;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #24545b;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #0097a7;
+        }
+
+        /* ---------- HERO ---------- */
+        .hero {
+            min-height: 90vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            text-align: center;
+            padding: 60px 20px;
+
+            background:
+                radial-gradient(circle at top right, #5ee7e1 0%, transparent 30%),
+                radial-gradient(circle at bottom left, #9be7e5 0%, transparent 30%),
+                linear-gradient(135deg, #006d77, #0097a7, #00b4b8);
+
+            color: white;
+        }
+
+        .hero-content {
+            max-width: 850px;
+        }
+
+        .hero h1 {
+            font-size: clamp(45px, 7vw, 80px);
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        .hero h1 span {
+            color: #bffffc;
+        }
+
+        .hero p {
+            font-size: 20px;
+            max-width: 650px;
+            margin: 0 auto 35px;
+            color: #e4ffff;
+        }
+
+        .btn {
+            display: inline-block;
+
+            padding: 14px 30px;
+            border-radius: 30px;
+
+            background: white;
+            color: #007c83;
+
+            text-decoration: none;
+            font-weight: bold;
+
+            transition: 0.3s;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+        }
+
+        /* ---------- SECTION ---------- */
+        section {
+            padding: 80px 30px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 38px;
+            color: #006d77;
+            margin-bottom: 10px;
+        }
+
+        .section-title p {
+            color: #58777c;
+        }
+
+        /* ---------- CARDS ---------- */
+        .cards {
+            max-width: 1100px;
+            margin: auto;
+
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .card {
+            background: white;
+            padding: 35px 28px;
+
+            border-radius: 20px;
+
+            border: 1px solid #d6eeee;
+
+            box-shadow: 0 10px 30px rgba(0, 100, 110, 0.08);
+
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 130, 140, 0.18);
+        }
+
+        .icon {
+            width: 60px;
+            height: 60px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            border-radius: 15px;
+
+            background: #dffafa;
+            color: #008c95;
+
+            font-size: 28px;
+
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            color: #006d77;
+            margin-bottom: 12px;
+            font-size: 22px;
+        }
+
+        .card p {
+            color: #607d82;
+        }
+
+        /* ---------- ABOUT ---------- */
+        .about {
+            background: #e5f8f8;
+        }
+
+        .about-container {
+            max-width: 1000px;
+            margin: auto;
+
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            font-size: 38px;
+            color: #006d77;
+            margin-bottom: 20px;
+        }
+
+        .about-text p {
+            color: #526f74;
+            margin-bottom: 15px;
+        }
+
+        .about-box {
+            padding: 40px;
+
+            border-radius: 25px;
+
+            background: linear-gradient(135deg,
+                    #007c83,
+                    #00a8ad);
+
+            color: white;
+
+            box-shadow: 0 20px 40px rgba(0, 110, 120, 0.2);
+        }
+
+        .about-box h3 {
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+
+        /* ---------- CONTACT ---------- */
+        .contact-box {
+            max-width: 800px;
+            margin: auto;
+
+            text-align: center;
+
+            padding: 50px 30px;
+
+            border-radius: 25px;
+
+            background: white;
+
+            box-shadow: 0 15px 40px rgba(0, 100, 110, 0.12);
+        }
+
+        .contact-box h2 {
+            color: #006d77;
+            margin-bottom: 15px;
+            font-size: 35px;
+        }
+
+        .contact-box p {
+            color: #607d82;
+            margin-bottom: 25px;
+        }
+
+        .contact-btn {
+            display: inline-block;
+
+            padding: 13px 28px;
+
+            border-radius: 25px;
+
+            background: #008c95;
+            color: white;
+
+            text-decoration: none;
+            font-weight: bold;
+
+            transition: 0.3s;
+        }
+
+        .contact-btn:hover {
+            background: #006d77;
+            transform: scale(1.05);
+        }
+
+        /* ---------- FOOTER ---------- */
+        footer {
+            text-align: center;
+            padding: 25px;
+
+            background: #004f58;
+            color: #d8ffff;
+        }
+
+        /* ---------- RESPONSIVE ---------- */
+        @media (max-width: 800px) {
+
+            nav {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav ul {
+                gap: 15px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .about-container {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                min-height: 80vh;
+            }
+        }
+
+        @media (max-width: 500px) {
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            section {
+                padding: 60px 20px;
+            }
+
+            .hero p {
+                font-size: 17px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVIGATION BAR -->
+    <header>
+        <nav>
+            <div class="logo">
+                Teal<span>Wave</span>
+            </div>
+
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+    <!-- HERO SECTION -->
+    <main>
+
+        <section class="hero" id="home">
+            <div class="hero-content">
+
+                <h1>
+                    Design the <span>Future</span>
+                </h1>
+
+                <p>
+                    A beautiful and modern webpage designed using
+                    HTML5 and CSS3 with an elegant teal-blue theme.
+                </p>
+
+                <a href="#features" class="btn">
+                    Explore More →
+                </a>
+
+            </div>
+        </section>
+
+
+        <!-- FEATURES -->
+        <section id="features">
+
+            <div class="section-title">
+                <h2>Our Features</h2>
+                <p>Simple design. Powerful presentation.</p>
+            </div>
+
+            <div class="cards">
+
+                <article class="card">
+                    <div class="icon">✦</div>
+
+                    <h3>Modern Design</h3>
+
+                    <p>
+                        A clean and attractive interface created
+                        using modern HTML5 and CSS3 techniques.
+                    </p>
+                </article>
+
+
+                <article class="card">
+                    <div class="icon">⚡</div>
+
+                    <h3>Fast & Smooth</h3>
+
+                    <p>
+                        Lightweight CSS with smooth transitions
+                        and hover effects for an interactive experience.
+                    </p>
+                </article>
+
+
+                <article class="card">
+                    <div class="icon">⌘</div>
+
+                    <h3>Responsive</h3>
+
+                    <p>
+                        The webpage automatically adapts to
+                        desktops, tablets and mobile devices.
+                    </p>
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- ABOUT -->
+        <section class="about" id="about">
+
+            <div class="about-container">
+
+                <div class="about-text">
+
+                    <h2>About This Design</h2>
+
+                    <p>
+                        This webpage demonstrates the use of
+                        HTML5 semantic elements and CSS3 styling.
+                    </p>
+
+                    <p>
+                        The teal and blue color palette provides
+                        a professional, calm and modern appearance.
+                    </p>
+
+                </div>
+
+
+                <div class="about-box">
+
+                    <h3>HTML5 + CSS3</h3>
+
+                    <p>
+                        Semantic structure, gradients, shadows,
+                        responsive layouts, transitions and
+                        modern UI elements are combined to create
+                        this webpage.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- CONTACT -->
+        <section id="contact">
+
+            <div class="contact-box">
+
+                <h2>Let's Connect</h2>
+
+                <p>
+                    Have an idea? Let's create something amazing
+                    together.
+                </p>
+
+                <a href="mailto:example@email.com" class="contact-btn">
+                    Contact Us
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer>
+        <p>
+            © 2026 TealWave | Designed using HTML5 & CSS3
+        </p>
+    </footer>
+
+</body>
+
+</html>

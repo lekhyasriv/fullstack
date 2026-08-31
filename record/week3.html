@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>JavaScript Arrays and Functions</title>
+</head>
+
+<body>
+
+    <h1>My Shopping List</h1>
+
+    <p id="date"></p>
+    <p id="time"></p>
+
+    <hr>
+
+    <h2>Enter Items</h2>
+
+    <input type="text" id="itemInput" placeholder="Enter an item">
+
+    <button onclick="addItem()">Add Item</button>
+
+    <button onclick="showList()">Show List</button>
+
+    <hr>
+
+    <h2>Output</h2>
+
+    <p id="list"></p>
+
+    <p id="count"></p>
+
+    <p id="message"></p>
+
+
+    <script>
+
+        // Array to store items
+        let items = [];
+
+
+        // Function to add an item
+        function addItem() {
+
+            let item = document.getElementById("itemInput").value;
+
+            if (item != "") {
+
+                items.push(item);
+
+                document.getElementById("itemInput").value = "";
+
+                document.getElementById("message").innerHTML =
+                    "Item added successfully!";
+            }
+            else {
+                alert("add item please!");
+            }
+        }
+
+
+        // Function to display the list
+        function showList() {
+
+            document.getElementById("list").innerHTML =
+                "<b>Items:</b> " + items.join(", ");
+
+            document.getElementById("count").innerHTML =
+                "<b>Total Items:</b> " + items.length;
+
+
+            if (items.length == 0) {
+
+                document.getElementById("message").innerHTML =
+                    "Your shopping list is empty.";
+
+            }
+
+            else if (items.length >= 5) {
+
+                document.getElementById("message").innerHTML =
+                    "You have many items to buy!";
+
+            }
+
+            else {
+
+                document.getElementById("message").innerHTML =
+                    "Your shopping list looks good!";
+            }
+        }
+
+
+        // Display date
+        function showDate() {
+
+            let today = new Date();
+
+            document.getElementById("date").innerHTML =
+                "<b>Date:</b> " + today.toDateString();
+        }
+
+
+        // Display time
+        function showTime() {
+
+            let today = new Date();
+
+            document.getElementById("time").innerHTML =
+                "<b>Time:</b> " + today.toLocaleTimeString();
+        }
+
+
+        showDate();
+        showTime();
+
+        setInterval(showTime, 1000);
+
+    </script>
+
+</body>
+
+</html>
