@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>To-Do List</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #2bbdc3;
+            text-align: center;
+            padding-top: 60px;
+        }
+
+        .container {
+            background: white;
+            width: 450px;
+            margin: auto;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        input {
+            padding: 12px;
+            width: 65%;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        .add {
+            padding: 12px 18px;
+            border: none;
+            border-radius: 6px;
+            background: #333;
+            color: white;
+            cursor: pointer;
+        }
+
+        ul {
+            padding: 0;
+            text-align: left;
+        }
+
+        li {
+            list-style: none;
+            padding: 12px;
+            margin-top: 10px;
+            background: #f8f8f8;
+            border-radius: 6px;
+            font-style: italic;
+        }
+
+        li button {
+            float: right;
+            margin-left: 6px;
+            border: none;
+            padding: 6px 9px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .complete {
+            background: #e0e0e0;
+        }
+
+        .delete {
+            background: #ffdddd;
+        }
+
+        .completed {
+            text-decoration: line-through;
+            color: #888;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>My To-Do List</h1>
+
+        <input id="taskInput" type="text" placeholder="What's the plan for today?">
+
+        <button class="add" onclick="addTask()">Add</button>
+
+        <ul id="taskList"></ul>
+
+    </div>
+
+
+    <script>
+
+        function addTask() {
+
+            let input = document.getElementById("taskInput");
+            let taskText = input.value;
+
+            if (taskText === "") {
+                alert("Please enter a task!");
+                return;
+            }
+
+            createTask(taskText);
+
+            input.value = "";
+        }
+
+
+        function createTask(taskText) {
+
+            let li = document.createElement("li");
+
+            let task = document.createElement("span");
+            task.textContent = taskText;
+
+
+            // Complete button
+            let completeButton = document.createElement("button");
+
+            completeButton.textContent = "done";
+            completeButton.className = "complete";
+
+            completeButton.onclick = () => {
+                completeTask(task);
+            };
+
+
+            // Delete button
+            let deleteButton = document.createElement("button");
+
+            deleteButton.textContent = "delete";
+            deleteButton.className = "delete";
+
+            deleteButton.onclick = () => {
+                deleteTask(li);
+            };
+
+
+            li.appendChild(task);
+            li.appendChild(deleteButton);
+            li.appendChild(completeButton);
+
+            document.getElementById("taskList").appendChild(li);
+        }
+
+
+        function completeTask(task) {
+
+            task.classList.toggle("completed");
+        }
+
+
+        function deleteTask(task) {
+
+            task.remove();
+        }
+
+    </script>
+
+</body>
+
+</html>
