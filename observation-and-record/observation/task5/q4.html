@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>DOM Demonstration</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+
+        #message {
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1 id="heading">DOM Demonstration</h1>
+
+    <p id="message">This is the original content.</p>
+
+    <button id="changeButton">Change Content</button>
+
+    <script>
+
+        const heading = document.getElementById("heading");
+        const message = document.getElementById("message");
+        const button = document.getElementById("changeButton");
+
+        button.addEventListener("click", function () {
+
+            message.textContent = "The content was changed using JavaScript.";
+
+            message.style.color = "blue";
+            message.style.fontSize = "20px";
+
+            heading.setAttribute("title", "DOM Modified");
+
+        });
+
+    </script>
+
+</body>
+
+</html>
