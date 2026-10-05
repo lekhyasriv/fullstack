@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Product Calculator</title>
+
+    <style>
+        /* Basic styling for the whole page */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+
+        /* Container for the calculator */
+        .container {
+            width: 350px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+
+        /* Styling for input fields */
+        input {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0 15px;
+            box-sizing: border-box;
+        }
+
+        /* Styling for total price */
+        #total {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        /* Error message will appear in red */
+        #error {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Main calculator container -->
+    <div class="container">
+        <h2>Product Calculator</h2>
+
+        <!-- Input field for product name -->
+        <label>Product Name:</label>
+        <input type="text" id="productName" placeholder="Enter product name">
+
+        <!-- Input field for product price -->
+        <label>Price:</label>
+        <input type="number" id="price" placeholder="Enter price" min="0">
+
+        <!-- Input field for quantity -->
+        <label>Quantity:</label>
+        <input type="number" id="quantity" placeholder="Enter quantity" min="1">
+
+        <!-- Error message will be displayed here -->
+        <p id="error"></p>
+
+        <!-- Total price will be displayed here -->
+        <p>Total Price: ₹<span id="total">0.00</span></p>
+    </div>
+
+    <script>
+
+        // Get the price input element using its ID
+        const priceInput = document.getElementById("price");
+
+        // Get the quantity input element using its ID
+        const quantityInput = document.getElementById("quantity");
+
+        // Get the element where total price will be displayed
+        const totalDisplay = document.getElementById("total");
+
+        // Get the element where error messages will be displayed
+        const errorDisplay = document.getElementById("error");
+
+
+        // Function to calculate the total price
+        function calculateTotal() {
+
+            // Convert the price entered by the user from string to decimal number
+            const price = parseFloat(priceInput.value);
+
+            // Convert the quantity entered by the user from string to integer
+            const quantity = parseInt(quantityInput.value);
+
+
+            // Check whether the entered values are invalid
+            // isNaN() checks whether the value is Not a Number
+            if (price < 0 || quantity < 1 || isNaN(price) || isNaN(quantity)) {
+
+                // If input is invalid, display 0.00 as total
+                totalDisplay.textContent = "0.00";
+
+                // Display an error message
+                errorDisplay.textContent = "Please enter valid price and quantity.";
+
+                // Stop the function
+                return;
+            }
+
+
+            // Calculate total price
+            // Formula: Total = Price × Quantity
+            const total = price * quantity;
+
+
+            // Display the calculated total
+            // toFixed(2) keeps exactly 2 digits after decimal
+            totalDisplay.textContent = total.toFixed(2);
+
+            // Remove the error message when input is valid
+            errorDisplay.textContent = "";
+        }
+
+
+        // Call calculateTotal whenever the price input changes
+        priceInput.addEventListener("input", calculateTotal);
+
+        // Call calculateTotal whenever the quantity input changes
+        quantityInput.addEventListener("input", calculateTotal);
+
+    </script>
+
+</body>
+
+</html>
