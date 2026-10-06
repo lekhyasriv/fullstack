@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>DOM Interactive Dashboard</title>
+</head>
+
+<body>
+
+    <h2 id="title">Student Dashboard</h2>
+
+    <p id="message">Click a button to interact with the page.</p>
+
+    <input type="text" id="name" placeholder="Enter your name">
+
+    <br><br>
+
+    <button onclick="showWelcome()">Welcome</button>
+    <button onclick="changeTheme()">Change Theme</button>
+    <button onclick="changeText()">Change Message</button>
+    <button onclick="resetPage()">Reset</button>
+
+    <script>
+
+        function showWelcome() {
+            let name = document.getElementById("name").value;
+
+            if (name === "") {
+                document.getElementById("message").textContent =
+                    "Please enter your name.";
+            } else {
+                document.getElementById("message").textContent =
+                    "Welcome, " + name + "!";
+            }
+        }
+
+        function changeTheme() {
+            document.body.style.backgroundColor = "lightblue";
+            document.getElementById("title").style.color = "darkblue";
+        }
+
+        function changeText() {
+            document.getElementById("message").textContent =
+                "The DOM allows JavaScript to change HTML dynamically!";
+        }
+
+        function resetPage() {
+            document.body.style.backgroundColor = "white";
+            document.getElementById("title").style.color = "black";
+            document.getElementById("message").textContent =
+                "Click a button to interact with the page.";
+            document.getElementById("name").value = "";
+        }
+
+    </script>
+
+</body>
+
+</html>
