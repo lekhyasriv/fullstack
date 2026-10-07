@@ -1,0 +1,17 @@
+{
+  "students": [
+    {
+      "name": "Lekhyasri",
+      "course": "AI & ML",
+      "year": 3,
+      "id": "1"
+    },
+    {
+      "name": "Priya",
+      "course": "ECE",
+      "year": 3,
+      "id": "6Y_Z0oXyZ1Y"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
