@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import "./App.css";
 
@@ -14,6 +13,7 @@ function App() {
   const [editingStudentId, setEditingStudentId] = useState(null);
   const [activePage, setActivePage] = useState("Dashboard");
   const [darkMode, setDarkMode] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -48,7 +48,6 @@ function App() {
       [e.target.name]: e.target.value
     });
   };
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -147,8 +146,6 @@ function App() {
     setError("");
   };
 
-
-
   const filteredStudents = students.filter((student) =>
     student.name.toLowerCase().includes(search.toLowerCase()) ||
     student.rollNo.toLowerCase().includes(search.toLowerCase())
@@ -158,44 +155,79 @@ function App() {
     students.map((student) => student.department)
   ).size;
 
-  return (
-    <div className={`app ${darkMode ? "dark-mode" : ""}`}>
+  const closeSidebar = () => setSidebarOpen(false);
 
+  return (
+    <div className={`app ${darkMode ? "dark-mode" : ""} ${sidebarOpen ? "sidebar-open" : ""}`}>
+      <button
+        className="mobile-menu-btn"
+        type="button"
+        onClick={() => setSidebarOpen(!sidebarOpen)}
+        aria-label={sidebarOpen ? "Close navigation menu" : "Open navigation menu"}
+        aria-expanded={sidebarOpen}
+      >
+        {sidebarOpen ? "×" : "☰"}
+      </button>
+
+      {sidebarOpen && (
+        <button
+          className="sidebar-backdrop"
+          type="button"
+          aria-label="Close navigation menu"
+          onClick={closeSidebar}
+        />
+      )}
 
       <aside className="sidebar">
-        <h2>StudentHub</h2>
+        <div className="sidebar-brand">
+          <h2>StudentHub</h2>
+          <p>Student records, simplified.</p>
+        </div>
+
+        <div className="sidebar-divider" />
+
+        <p className="sidebar-section-label">NAVIGATION</p>
 
         <nav>
           <button
             className={activePage === "Dashboard" ? "active" : ""}
-            onClick={() => setActivePage("Dashboard")}
+            onClick={() => {
+              setActivePage("Dashboard");
+              closeSidebar();
+            }}
             title="Dashboard"
           >
-            <span className="nav-icon">⌂</span>
             <span className="nav-text">Dashboard</span>
           </button>
 
           <button
             className={activePage === "Students" ? "active" : ""}
-            onClick={() => setActivePage("Students")}
+            onClick={() => {
+              setActivePage("Students");
+              closeSidebar();
+            }}
             title="Students"
           >
-            <span className="nav-icon">♙</span>
             <span className="nav-text">Students</span>
           </button>
 
           <button
             className={activePage === "Settings" ? "active" : ""}
-            onClick={() => setActivePage("Settings")}
+            onClick={() => {
+              setActivePage("Settings");
+              closeSidebar();
+            }}
             title="Settings"
           >
-            <span className="nav-icon">⚙</span>
             <span className="nav-text">Settings</span>
           </button>
         </nav>
+
+        <div className="sidebar-footer">
+          <span>STUDENT MANAGEMENT</span>
+          <p>Organize. Track. Manage.</p>
+        </div>
       </aside>
-
-
 
       <main className="main-content">
         {activePage === "Dashboard" && (
@@ -232,40 +264,43 @@ function App() {
             <section className="student-section">
               <h2>Student Details</h2>
 
-              <table>
-                <thead>
-                  <tr>
-                    <th align="center">Name</th>
-                    <th align="center">Roll Number</th>
-                    <th align="center">Email</th>
-                    <th align="center">Department</th>
-                    <th align="center">Year</th>
-                    <th align="center">Phone</th>
-                  </tr>
-                </thead>
-
-                <tbody>
-                  {students.length > 0 ? (
-                    students.map((student) => (
-                      <tr key={student._id}>
-                        <td>{student.name}</td>
-                        <td>{student.rollNo}</td>
-                        <td>{student.email}</td>
-                        <td>{student.department}</td>
-                        <td>{student.year}</td>
-                        <td>{student.phone || "—"}</td>
-                      </tr>
-                    ))
-                  ) : (
+              <div className="table-wrapper">
+                <table>
+                  <thead>
                     <tr>
-                      <td colSpan="6">No students registered yet.</td>
+                      <th>Name</th>
+                      <th>Roll Number</th>
+                      <th>Email</th>
+                      <th>Department</th>
+                      <th>Year</th>
+                      <th>Phone</th>
                     </tr>
-                  )}
-                </tbody>
-              </table>
+                  </thead>
+
+                  <tbody>
+                    {students.length > 0 ? (
+                      students.map((student) => (
+                        <tr key={student._id}>
+                          <td data-label="Name">{student.name}</td>
+                          <td data-label="Roll Number">{student.rollNo}</td>
+                          <td data-label="Email">{student.email}</td>
+                          <td data-label="Department">{student.department}</td>
+                          <td data-label="Year">{student.year}</td>
+                          <td data-label="Phone">{student.phone || "—"}</td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan="6">No students registered yet.</td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
             </section>
           </>
         )}
+
         {activePage === "Settings" && (
           <>
             <header>
@@ -361,8 +396,8 @@ function App() {
             )}
           </>
         )}
-        {activePage === "Dashboard" && (
 
+        {activePage === "Dashboard" && (
           <section className="stats">
             <div className="stat-card">
               <h3>Total Students</h3>
@@ -380,6 +415,7 @@ function App() {
             </div>
           </section>
         )}
+
         {activePage === "Dashboard" && (
           <section className="student-section">
             <h2>Student Records</h2>
@@ -394,53 +430,55 @@ function App() {
             {loading ? (
               <p>Loading students...</p>
             ) : (
-              <table>
-                <thead>
-                  <tr>
-                    <th align="center">Name</th>
-                    <th align="center">Roll Number</th>
-                    <th align="center">Email</th>
-                    <th align="center">Department</th>
-                    <th align="center">Year</th>
-                    <th align="center">Actions</th>
-                  </tr>
-                </thead>
-
-                <tbody>
-                  {filteredStudents.length > 0 ? (
-                    filteredStudents.map((student) => (
-                      <tr key={student._id}>
-                        <td>{student.name}</td>
-                        <td>{student.rollNo}</td>
-                        <td>{student.email}</td>
-                        <td>{student.department}</td>
-                        <td>{student.year}</td>
-
-                        <td>
-                          <button
-                            className="edit-btn"
-                            onClick={() => handleEdit(student)}
-                          >
-                            Edit
-                          </button>
-
-                          <button
-                            className="delete-btn"
-                            onClick={() => handleDelete(student._id)}
-                          >
-                            Delete
-                          </button>
-                        </td>
-
-                      </tr>
-                    ))
-                  ) : (
+              <div className="table-wrapper">
+                <table>
+                  <thead>
                     <tr>
-                      <td colSpan="6">No students found</td>
+                      <th>Name</th>
+                      <th>Roll Number</th>
+                      <th>Email</th>
+                      <th>Department</th>
+                      <th>Year</th>
+                      <th>Actions</th>
                     </tr>
-                  )}
-                </tbody>
-              </table>
+                  </thead>
+
+                  <tbody>
+                    {filteredStudents.length > 0 ? (
+                      filteredStudents.map((student) => (
+                        <tr key={student._id}>
+                          <td data-label="Name">{student.name}</td>
+                          <td data-label="Roll Number">{student.rollNo}</td>
+                          <td data-label="Email">{student.email}</td>
+                          <td data-label="Department">{student.department}</td>
+                          <td data-label="Year">{student.year}</td>
+                          <td data-label="Actions">
+                            <div className="table-actions">
+                              <button
+                                className="edit-btn"
+                                onClick={() => handleEdit(student)}
+                              >
+                                Edit
+                              </button>
+
+                              <button
+                                className="delete-btn"
+                                onClick={() => handleDelete(student._id)}
+                              >
+                                Delete
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan="6">No students found</td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
             )}
           </section>
         )}
