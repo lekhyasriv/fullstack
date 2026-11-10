@@ -161,30 +161,37 @@ function App() {
   return (
     <div className={`app ${darkMode ? "dark-mode" : ""}`}>
 
+
       <aside className="sidebar">
         <h2>StudentHub</h2>
 
         <nav>
-          <p
+          <button
             className={activePage === "Dashboard" ? "active" : ""}
             onClick={() => setActivePage("Dashboard")}
+            title="Dashboard"
           >
-            Dashboard
-          </p>
+            <span className="nav-icon">⌂</span>
+            <span className="nav-text">Dashboard</span>
+          </button>
 
-          <p
+          <button
             className={activePage === "Students" ? "active" : ""}
             onClick={() => setActivePage("Students")}
+            title="Students"
           >
-            Students
-          </p>
+            <span className="nav-icon">♙</span>
+            <span className="nav-text">Students</span>
+          </button>
 
-          <p
+          <button
             className={activePage === "Settings" ? "active" : ""}
             onClick={() => setActivePage("Settings")}
+            title="Settings"
           >
-            Settings
-          </p>
+            <span className="nav-icon">⚙</span>
+            <span className="nav-text">Settings</span>
+          </button>
         </nav>
       </aside>
 
